@@ -38,37 +38,37 @@ export const stats = [
 
 export const services = [
   {
-    icon: '🔬',
+    icon: 'biotech',
     title: 'Medical Dermatology',
     description:
       'Diagnosis and treatment of eczema, psoriasis, acne, rosacea, fungal infections, and other chronic skin conditions.',
   },
   {
-    icon: '✦',
+    icon: 'manage_search',
     title: 'Skin Cancer Screening',
     description:
       'Full body mole mapping, dermoscopy, and early detection of melanoma and non-melanoma skin cancers using advanced imaging.',
   },
   {
-    icon: '💉',
+    icon: 'vaccines',
     title: 'Injectables & Fillers',
     description:
       'Anti-wrinkle injections, dermal fillers and lip enhancements performed with precision for natural, subtle results.',
   },
   {
-    icon: '⚡',
+    icon: 'wb_sunny',
     title: 'Laser Treatments',
     description:
       'Fractional CO₂ laser resurfacing, laser hair removal, pigmentation correction and vascular lesion treatment.',
   },
   {
-    icon: '🌿',
+    icon: 'spa',
     title: 'Chemical Peels',
     description:
       'Medical-grade peels targeting sun damage, hyperpigmentation, acne scarring and uneven skin texture.',
   },
   {
-    icon: '🩺',
+    icon: 'child_care',
     title: 'Paediatric Dermatology',
     description:
       'Gentle, specialised care for children with eczema, birthmarks, warts, and other childhood skin conditions.',
