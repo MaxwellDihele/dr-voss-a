@@ -1,0 +1,290 @@
+---
+// src/components/Booking.astro
+import { hours, serviceOptions, timeSlots } from '../data/site';
+---
+
+<section id="booking">
+  <p class="section-tag">Appointments</p>
+  <h2 class="section-title">Book a Consultation</h2>
+  <p class="section-sub">
+    Fill in the form and our team will confirm your appointment within one
+    business day.
+  </p>
+
+  <div class="booking-grid">
+    <!-- Hours info -->
+    <div class="booking-info">
+      <h3>Consulting Hours</h3>
+      <p>
+        We operate Monday to Friday, with limited Saturday morning slots
+        available for working patients.
+      </p>
+      <ul class="hours-list">
+        {hours.map(h => (
+          <li>
+            <span>{h.day}</span>
+            <span class={h.closed ? 'hours-closed' : ''}>{h.time}</span>
+          </li>
+        ))}
+      </ul>
+    </div>
+
+    <!-- Appointment form -->
+    <div class="booking-form" id="appt-form-wrap">
+      <h3>Request an Appointment</h3>
+
+      <div class="form-row">
+        <div class="form-group">
+          <label for="f-first">First Name</label>
+          <input type="text" id="f-first" placeholder="Jane" autocomplete="given-name" />
+        </div>
+        <div class="form-group">
+          <label for="f-last">Last Name</label>
+          <input type="text" id="f-last" placeholder="Smith" autocomplete="family-name" />
+        </div>
+      </div>
+
+      <div class="form-row">
+        <div class="form-group">
+          <label for="f-email">Email Address</label>
+          <input type="email" id="f-email" placeholder="jane@email.com" autocomplete="email" />
+        </div>
+        <div class="form-group">
+          <label for="f-phone">Phone Number</label>
+          <input type="tel" id="f-phone" placeholder="+27 82 000 0000" autocomplete="tel" />
+        </div>
+      </div>
+
+      <div class="form-group">
+        <label for="f-service">Service Required</label>
+        <select id="f-service">
+          <option value="">— Select a service —</option>
+          {serviceOptions.map(opt => (
+            <option value={opt}>{opt}</option>
+          ))}
+        </select>
+      </div>
+
+      <div class="form-row">
+        <div class="form-group">
+          <label for="f-date">Preferred Date</label>
+          <input type="date" id="f-date" />
+        </div>
+        <div class="form-group">
+          <label for="f-time">Preferred Time</label>
+          <select id="f-time">
+            <option value="">— Select —</option>
+            {timeSlots.map(slot => (
+              <option value={slot}>{slot}</option>
+            ))}
+          </select>
+        </div>
+      </div>
+
+      <div class="form-group">
+        <label for="f-notes">Additional Notes (optional)</label>
+        <textarea
+          id="f-notes"
+          placeholder="Please describe your concern or any relevant medical history…"
+        ></textarea>
+      </div>
+
+      <button class="form-submit" id="submit-btn" type="button">
+        Request Appointment
+      </button>
+      <p class="form-note">🔒 Your information is confidential and will never be shared.</p>
+
+      <div class="success-msg" id="success-msg" aria-live="polite">
+        <div class="check" aria-hidden="true">✓</div>
+        <h4>Request Received</h4>
+        <p>Thank you! We'll confirm your appointment by the next business day.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<style>
+  #booking { background: var(--white); }
+
+  .booking-grid {
+    display: grid;
+    grid-template-columns: 1fr 1.2fr;
+    gap: 4rem;
+    align-items: start;
+  }
+
+  .booking-info h3 {
+    font-family: var(--serif);
+    font-size: 1.4rem;
+    font-weight: 400;
+    margin-bottom: 1rem;
+  }
+  .booking-info p {
+    font-size: 0.88rem;
+    color: var(--ink-light);
+    line-height: 1.8;
+    font-weight: 300;
+    margin-bottom: 2rem;
+  }
+
+  .hours-list {
+    list-style: none;
+    border: 1px solid var(--border);
+    border-radius: 4px;
+    overflow: hidden;
+  }
+  .hours-list li {
+    display: flex;
+    justify-content: space-between;
+    padding: 0.75rem 1.2rem;
+    font-size: 0.85rem;
+    border-bottom: 1px solid var(--border);
+  }
+  .hours-list li:last-child { border-bottom: none; }
+  .hours-list li span:first-child { color: var(--ink-light); }
+  .hours-list li span:last-child { font-weight: 500; }
+  .hours-closed { color: #C0392B !important; }
+
+  /* ── Form ── */
+  .booking-form {
+    background: var(--cream);
+    border: 1px solid var(--border);
+    border-radius: 4px;
+    padding: 2.5rem;
+  }
+  .booking-form h3 {
+    font-family: var(--serif);
+    font-size: 1.5rem;
+    font-weight: 400;
+    margin-bottom: 1.8rem;
+  }
+
+  .form-row {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 1rem;
+  }
+
+  .form-group {
+    margin-bottom: 1.2rem;
+    display: flex;
+    flex-direction: column;
+  }
+  .form-group label {
+    font-size: 0.72rem;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    color: var(--ink-light);
+    margin-bottom: 0.45rem;
+    font-weight: 500;
+  }
+  .form-group input,
+  .form-group select,
+  .form-group textarea {
+    font-family: var(--sans);
+    font-size: 0.9rem;
+    font-weight: 300;
+    color: var(--ink);
+    background: var(--white);
+    border: 1px solid var(--border);
+    border-radius: 2px;
+    padding: 0.7rem 0.9rem;
+    outline: none;
+    transition: border-color 0.2s;
+    width: 100%;
+  }
+  .form-group input:focus,
+  .form-group select:focus,
+  .form-group textarea:focus {
+    border-color: var(--accent);
+  }
+  .form-group textarea {
+    resize: vertical;
+    min-height: 90px;
+  }
+
+  .form-submit {
+    width: 100%;
+    background: var(--accent);
+    color: var(--white);
+    border: none;
+    padding: 1rem;
+    font-family: var(--sans);
+    font-size: 0.85rem;
+    font-weight: 500;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    border-radius: 2px;
+    cursor: pointer;
+    transition: background 0.2s;
+    margin-top: 0.5rem;
+  }
+  .form-submit:hover { background: var(--accent-light); }
+
+  .form-note {
+    font-size: 0.75rem;
+    color: var(--ink-light);
+    margin-top: 0.8rem;
+    text-align: center;
+    font-weight: 300;
+  }
+
+  /* ── Success state ── */
+  .success-msg {
+    display: none;
+    text-align: center;
+    padding: 2rem;
+  }
+  .success-msg .check {
+    width: 56px; height: 56px;
+    border-radius: 50%;
+    background: var(--accent-pale);
+    color: var(--accent);
+    font-size: 1.5rem;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin: 0 auto 1rem;
+  }
+  .success-msg h4 {
+    font-family: var(--serif);
+    font-size: 1.4rem;
+    margin-bottom: 0.5rem;
+  }
+  .success-msg p {
+    font-size: 0.88rem;
+    color: var(--ink-light);
+  }
+
+  @media (max-width: 900px) {
+    .booking-grid { grid-template-columns: 1fr; }
+    .form-row { grid-template-columns: 1fr; }
+  }
+</style>
+
+<script>
+  // Set min date to today
+  const dateInput = document.getElementById('f-date') as HTMLInputElement;
+  if (dateInput) {
+    dateInput.min = new Date().toISOString().split('T')[0];
+  }
+
+  document.getElementById('submit-btn')?.addEventListener('click', () => {
+    const first   = (document.getElementById('f-first')   as HTMLInputElement).value.trim();
+    const email   = (document.getElementById('f-email')   as HTMLInputElement).value.trim();
+    const service = (document.getElementById('f-service') as HTMLSelectElement).value;
+
+    if (!first || !email || !service) {
+      alert('Please fill in your name, email and select a service.');
+      return;
+    }
+
+    const wrap = document.getElementById('appt-form-wrap') as HTMLElement;
+    wrap
+      .querySelectorAll<HTMLElement>('.form-row, .form-group, .form-submit, .form-note, h3')
+      .forEach(el => (el.style.display = 'none'));
+
+    const success = document.getElementById('success-msg') as HTMLElement;
+    success.style.display = 'block';
+  });
+</script>

@@ -1,0 +1,128 @@
+---
+// src/components/Nav.astro
+import { navLinks, siteConfig } from '../data/site';
+---
+
+<nav>
+  <div class="nav-logo">
+    Dr. <span>{siteConfig.name.replace('Dr. ', '')}</span>
+  </div>
+
+  <ul class="nav-links">
+    {navLinks.map(link => (
+      <li><a href={link.href}>{link.label}</a></li>
+    ))}
+    <li><a href="#booking" class="nav-cta">Book Appointment</a></li>
+  </ul>
+
+  <button class="hamburger" aria-label="Toggle navigation" aria-expanded="false">
+    <span></span><span></span><span></span>
+  </button>
+</nav>
+
+<style>
+  nav {
+    position: fixed;
+    top: 0; left: 0; right: 0;
+    z-index: 100;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 1.25rem 4rem;
+    background: rgba(247, 245, 241, 0.92);
+    backdrop-filter: blur(12px);
+    border-bottom: 1px solid var(--border);
+    animation: fadeDown 0.6s ease both;
+  }
+
+  .nav-logo {
+    font-family: var(--serif);
+    font-size: 1.35rem;
+    font-weight: 500;
+    color: var(--ink);
+    letter-spacing: 0.01em;
+  }
+  .nav-logo span { color: var(--accent); }
+
+  .nav-links {
+    display: flex;
+    gap: 2.5rem;
+    list-style: none;
+  }
+  .nav-links a {
+    font-size: 0.85rem;
+    font-weight: 500;
+    letter-spacing: 0.06em;
+    text-transform: uppercase;
+    color: var(--ink-light);
+    text-decoration: none;
+    transition: color 0.2s;
+  }
+  .nav-links a:hover { color: var(--accent); }
+
+  .nav-cta {
+    background: var(--accent);
+    color: var(--white) !important;
+    padding: 0.6rem 1.4rem;
+    border-radius: 2px;
+  }
+  .nav-cta:hover {
+    background: var(--accent-light) !important;
+    color: var(--white) !important;
+  }
+
+  .hamburger {
+    display: none;
+    flex-direction: column;
+    gap: 5px;
+    cursor: pointer;
+    background: none;
+    border: none;
+    padding: 0;
+  }
+  .hamburger span {
+    width: 24px;
+    height: 2px;
+    background: var(--ink);
+    border-radius: 2px;
+    display: block;
+    transition: transform 0.2s, opacity 0.2s;
+  }
+
+  /* Mobile nav panel — hidden by default */
+  .nav-links.open {
+    display: flex !important;
+    flex-direction: column;
+    position: absolute;
+    top: 65px; left: 0; right: 0;
+    background: var(--cream);
+    padding: 1.5rem 2rem;
+    border-bottom: 1px solid var(--border);
+    gap: 1rem;
+    z-index: 99;
+  }
+
+  @media (max-width: 900px) {
+    nav { padding: 1rem 2rem; }
+    .nav-links { display: none; }
+    .hamburger { display: flex; }
+  }
+</style>
+
+<script>
+  const btn = document.querySelector('.hamburger') as HTMLButtonElement;
+  const links = document.querySelector('.nav-links') as HTMLUListElement;
+
+  btn?.addEventListener('click', () => {
+    const isOpen = links.classList.toggle('open');
+    btn.setAttribute('aria-expanded', String(isOpen));
+  });
+
+  // Close nav when a link is clicked
+  links?.querySelectorAll('a').forEach(a => {
+    a.addEventListener('click', () => {
+      links.classList.remove('open');
+      btn.setAttribute('aria-expanded', 'false');
+    });
+  });
+</script>

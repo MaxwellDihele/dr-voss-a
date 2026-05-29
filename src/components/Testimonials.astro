@@ -1,0 +1,105 @@
+---
+// src/components/Testimonials.astro
+import { testimonials } from '../data/site';
+---
+
+<section id="testimonials">
+  <p class="section-tag">Patient Experiences</p>
+  <h2 class="section-title">What patients say</h2>
+  <p class="section-sub">
+    Real feedback from people who've experienced our care firsthand.
+  </p>
+
+  <div class="testimonial-grid">
+    {testimonials.map(t => (
+      <div class="testimonial-card">
+        <div class="stars">★★★★★</div>
+        <blockquote>"{t.quote}"</blockquote>
+        <div class="testimonial-author">
+          <div class="author-avatar">{t.initial}</div>
+          <div>
+            <div class="author-name">{t.name}</div>
+            <div class="author-detail">{t.detail}</div>
+          </div>
+        </div>
+      </div>
+    ))}
+  </div>
+</section>
+
+<style>
+  #testimonials {
+    background: var(--accent);
+    color: var(--white);
+  }
+
+  #testimonials .section-tag {
+    color: rgba(255,255,255,0.65);
+  }
+  #testimonials .section-title { color: var(--white); }
+  #testimonials .section-sub {
+    color: rgba(255,255,255,0.75);
+  }
+
+  .testimonial-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 1.5rem;
+  }
+
+  .testimonial-card {
+    background: rgba(255,255,255,0.1);
+    border: 1px solid rgba(255,255,255,0.15);
+    border-radius: 4px;
+    padding: 2rem;
+  }
+
+  .stars {
+    color: #F5D26B;
+    font-size: 0.85rem;
+    margin-bottom: 1rem;
+    letter-spacing: 0.1em;
+  }
+
+  .testimonial-card blockquote {
+    font-family: var(--serif);
+    font-size: 1.05rem;
+    font-weight: 300;
+    line-height: 1.7;
+    color: rgba(255,255,255,0.9);
+    margin-bottom: 1.5rem;
+    font-style: italic;
+  }
+
+  .testimonial-author {
+    display: flex;
+    align-items: center;
+    gap: 0.75rem;
+  }
+
+  .author-avatar {
+    width: 36px; height: 36px;
+    border-radius: 50%;
+    background: rgba(255,255,255,0.2);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-family: var(--serif);
+    font-size: 0.85rem;
+    color: var(--white);
+    flex-shrink: 0;
+  }
+
+  .author-name {
+    font-size: 0.85rem;
+    font-weight: 500;
+  }
+  .author-detail {
+    font-size: 0.75rem;
+    opacity: 0.65;
+  }
+
+  @media (max-width: 900px) {
+    .testimonial-grid { grid-template-columns: 1fr; }
+  }
+</style>

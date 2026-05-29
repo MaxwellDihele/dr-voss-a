@@ -1,0 +1,75 @@
+---
+// src/components/Services.astro
+import { services } from '../data/site';
+---
+
+<section id="services">
+  <p class="section-tag">What We Treat</p>
+  <h2 class="section-title">Specialist Services</h2>
+  <p class="section-sub">
+    Comprehensive dermatological care covering medical, surgical and aesthetic
+    needs — all under one roof.
+  </p>
+
+  <div class="services-grid">
+    {services.map(service => (
+      <div class="service-card">
+        <div class="service-icon">{service.icon}</div>
+        <h3>{service.title}</h3>
+        <p>{service.description}</p>
+      </div>
+    ))}
+  </div>
+</section>
+
+<style>
+  #services { background: var(--white); }
+
+  .services-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 1.5rem;
+  }
+
+  .service-card {
+    border: 1px solid var(--border);
+    border-radius: 4px;
+    padding: 2rem;
+    transition: border-color 0.25s, box-shadow 0.25s, transform 0.25s;
+    cursor: default;
+  }
+  .service-card:hover {
+    border-color: var(--accent);
+    box-shadow: 0 8px 32px rgba(46,110,101,0.09);
+    transform: translateY(-3px);
+  }
+
+  .service-icon {
+    width: 42px; height: 42px;
+    border-radius: 50%;
+    background: var(--accent-pale);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin-bottom: 1.2rem;
+    font-size: 1.1rem;
+  }
+
+  .service-card h3 {
+    font-family: var(--serif);
+    font-size: 1.25rem;
+    font-weight: 500;
+    margin-bottom: 0.6rem;
+  }
+
+  .service-card p {
+    font-size: 0.88rem;
+    color: var(--ink-light);
+    line-height: 1.75;
+    font-weight: 300;
+  }
+
+  @media (max-width: 900px) {
+    .services-grid { grid-template-columns: 1fr; }
+  }
+</style>

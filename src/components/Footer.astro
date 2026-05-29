@@ -1,0 +1,109 @@
+---
+// src/components/Footer.astro
+import { contact, navLinks, siteConfig } from '../data/site';
+---
+
+<footer>
+  <div class="footer-brand">
+    <span class="nav-logo">
+      Dr. <span>{siteConfig.name.replace('Dr. ', '')}</span>
+    </span>
+    <p>
+      Specialist Dermatologist practising in Johannesburg. Evidence-based care
+      for every skin type.
+    </p>
+  </div>
+
+  <div class="footer-col">
+    <h4>Quick Links</h4>
+    <ul>
+      {navLinks.map(link => (
+        <li><a href={link.href}>{link.label}</a></li>
+      ))}
+      <li><a href="#booking">Book Appointment</a></li>
+    </ul>
+  </div>
+
+  <div class="footer-col">
+    <h4>Contact</h4>
+    <ul>
+      <li><a href={`https://maps.google.com/?q=${encodeURIComponent(contact.address)}`} target="_blank" rel="noopener">📍 {contact.address}</a></li>
+      <li><a href={`tel:${contact.phone.replace(/\s/g,'')}`}>📞 {contact.phone}</a></li>
+      <li><a href={`mailto:${contact.email}`}>✉ {contact.email}</a></li>
+    </ul>
+  </div>
+</footer>
+
+<div class="footer-bottom">
+  <span>© {siteConfig.year} {siteConfig.practiceName}. All rights reserved.</span>
+  <span>Practice No. {siteConfig.practiceNo} | HPCSA Registered</span>
+</div>
+
+<style>
+  footer {
+    background: var(--ink);
+    color: rgba(255,255,255,0.7);
+    padding: 3rem 4rem;
+    display: grid;
+    grid-template-columns: 1.5fr 1fr 1fr;
+    gap: 3rem;
+  }
+
+  .footer-brand .nav-logo {
+    font-family: var(--serif);
+    font-size: 1.35rem;
+    font-weight: 500;
+    color: var(--white);
+    margin-bottom: 0.8rem;
+    display: block;
+    letter-spacing: 0.01em;
+  }
+  .footer-brand .nav-logo span { color: var(--accent-light); }
+  .footer-brand p {
+    font-size: 0.83rem;
+    line-height: 1.75;
+    font-weight: 300;
+  }
+
+  .footer-col h4 {
+    font-size: 0.72rem;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    color: rgba(255,255,255,0.4);
+    margin-bottom: 1rem;
+  }
+  .footer-col ul { list-style: none; }
+  .footer-col ul li {
+    font-size: 0.85rem;
+    margin-bottom: 0.5rem;
+  }
+  .footer-col ul li a {
+    color: rgba(255,255,255,0.7);
+    text-decoration: none;
+    transition: color 0.2s;
+  }
+  .footer-col ul li a:hover { color: var(--white); }
+
+  .footer-bottom {
+    background: var(--ink);
+    padding: 1.2rem 4rem;
+    border-top: 1px solid rgba(255,255,255,0.08);
+    font-size: 0.78rem;
+    color: rgba(255,255,255,0.35);
+    display: flex;
+    justify-content: space-between;
+  }
+
+  @media (max-width: 900px) {
+    footer {
+      grid-template-columns: 1fr;
+      gap: 2rem;
+      padding: 3rem 2rem;
+    }
+    .footer-bottom {
+      padding: 1rem 2rem;
+      flex-direction: column;
+      gap: 0.5rem;
+    }
+  }
+</style>
